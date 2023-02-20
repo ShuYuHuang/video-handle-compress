@@ -1,4 +1,4 @@
-# video-handel-compress
+# video-handle-compress
 Video batch editing for AIA courses clips: add watermark, add title, compress
 
 AIAers, this is your blessing~~
@@ -11,7 +11,7 @@ Lets automate the process of your course video:
 
 ## Installation
 Star, fork and git clone this repo:
-```git clone https://github.com/ShuYuHuang/whisper-subtitle.git```
+```git clone https://github.com/ShuYuHuang/video-handle-compress.git```
 
 Install requirements with the following command:
 ```pip install -r requirements.txt```
