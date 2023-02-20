@@ -19,7 +19,7 @@ Install requirements with the following command:
 ## Usage
 Please proceed your batch production with the folloings:
 1. Start the main program:
-    ```python produce.py```
+> ```python produce.py```
 2. Enter the file path, e.g. ```data```
 ```
 Please have the folder organized like this
