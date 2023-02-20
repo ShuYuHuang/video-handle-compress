@@ -11,10 +11,10 @@ Lets automate the process of your course video:
 
 ## Installation
 Star, fork and git clone this repo:
-```git clone https://github.com/ShuYuHuang/video-handle-compress.git```
+> ```git clone https://github.com/ShuYuHuang/video-handle-compress.git```
 
 Install requirements with the following command:
-```pip install -r requirements.txt```
+> ```pip install -r requirements.txt```
 
 ## Usage
 Please proceed your batch production with the folloings:
@@ -23,9 +23,11 @@ Please proceed your batch production with the folloings:
 2. Enter the file path, e.g. ```data```
 ```
 Please have the folder organized like this
-root-
+root/
     - XXX.mkv(/.mov/.mp4/..., the recorded clip)
     - XXX.png (the corresponding title picture, please follow the template we made)
+    - YYY.mkv
+    - YYY.png
     - watermark.png (the watermark file to print on each frame)
 ```
 3. Enter the output path, e.g. ```out```
