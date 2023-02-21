@@ -27,7 +27,6 @@ if __name__ == '__main__':
 
     print('-----List all files from DATA_DIR with suffix in SUFFIX_LIST, find their title picture in ".png" format')
     SUFFIX_LIST = ['.mkv', '.mp4', '.mov']
-    DATA_DIR = '/project/ta-shared-ii/video-handel-compress/data'
     all_files = glob(DATA_DIR+'/*.*')
     vfiles = []
     for f in all_files:
