@@ -1,5 +1,6 @@
 import os
 import re
+import numpy as np
 from glob import glob
 
 import moviepy.editor as mpy  # for title clip
@@ -48,8 +49,9 @@ if __name__ == '__main__':
 
     print('Create title films')
     # Prepare dummy audio file
-    make_frame = lambda t: 0.0
-    dummy_audio = mpy.AudioClip(make_frame, duration=3.5, fps=44100) 
+    make_frame = lambda t: np.sin(0.0*t)
+    dummy_audio = mpy.AudioClip(make_frame, duration=7.0, fps=44100)
+    cpright = mpy.ImageClip(f'{DATA_DIR}/copyright.png', duration=3.5)
     # Start making title films
     tmp_filename = []
     for f, ch in zip(tfiles, chapters):
@@ -57,25 +59,30 @@ if __name__ == '__main__':
         tmp_filename.append(f'{TMP_DIR}/{ch}_title.mkv')
         if not os.path.exists(tmp_filename[-1]):
             tclip = mpy.ImageClip(f, duration=3.5)
-            tclip = tclip.set_audio(dummy_audio)
-            tclip.write_videofile(tmp_filename[-1], codec='libx264', fps=30, bitrate='2500K')
+            myclip = mpy.concatenate_videoclips([tclip, cpright])
+            myclip = myclip.set_audio(dummy_audio)
+            myclip.write_videofile(tmp_filename[-1], codec='libx264', fps=30, bitrate='2500K')
 
     print('Producing start:')
     for tfanme, vfname, ch in zip(tmp_filename, vfiles, chapters):
         # Set input files
         t_in = ffmpeg.input(tfanme)
         v_in = ffmpeg.input(vfname)
-        wm_in = ffmpeg.input(DATA_DIR+'/watermark.png')
+        wm_in = ffmpeg.input(f'{DATA_DIR}/watermark.png')
 
         # Add water mark to main video
         fused = ffmpeg.overlay(v_in.video, wm_in)
-
+        
+        # Filter and normalize audio
+        v_in_audio = v_in.audio.filter_('lowpass', f=1600).filter_('dynaudnorm', p=0.9, s=5)
+        
         # Add title clip
-        joined = ffmpeg.concat(t_in.video.filter_('fade', t='out', st=3.0, d=0.5),
+        joined = ffmpeg.concat(t_in.video.filter_('fade', t='out', st=6.5, d=0.5),
                                t_in.audio,
                                fused.filter_('fade', t='in', st=0, d=0.5),
-                               v_in.audio,
+                               v_in_audio,
                                v=1, a=1)
+        
         # Run Production
         out = ffmpeg.output(joined, f'{OUTPUT_DIR}/{ch}.mp4',r=30)
         out.run()

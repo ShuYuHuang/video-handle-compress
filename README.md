@@ -7,7 +7,9 @@ Lets automate the process of your course video:
 
 1. Add watermark to the clip (ffmpeg-python)
 2. Add title page to the front (MoviePy)
-3. Compress and export to mp4 with framerate = 30 fps (ffmpeg-python)
+3. Filter high frequency noise
+4. Normalize Volume
+5. Compress and export to mp4 with framerate = 30 fps (ffmpeg-python)
 
 ## Installation
 Star, fork and git clone this repo:
